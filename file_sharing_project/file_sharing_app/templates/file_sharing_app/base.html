@@ -1,0 +1,65 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to University Hub</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href={% static 'file_sharing_app/styles.css' %}>
+    
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Welcome to University Hub</h1>
+            <nav>
+                <div class="mobile-menu-icon" onclick="toggleMenu()">&#9776;</div>
+                <ul class="mobile-menu" id="mobileMenu">
+                    <li><a href="{% url 'welcomed' %}">Home</a></li>
+                    <li><a href="{% url 'note_list' %}">Notes</a></li>
+                    <li><a href="{% url 'video_list' %}">Videos</a></li>
+                    <li><a href="{% url 'video_list' %}">Audio</a></li>
+                    <li><a href="">Files</a></li>
+                    <li><a href="#">Chat</a></li>
+                    <li><a href="#">Profile</a></li>
+                    <li><a href="{% url 'logout'%}">Logout</a></li>
+                </ul>
+                
+            </nav>
+        </div>
+    </header>
+    {% block body %}
+
+    {% endblock body %}
+    <footer>
+        <div class="container">
+            <p>&copy; 2023 University Hub. All rights reserved.</p>
+        </div>
+    </footer>
+    <script>
+        function toggleMenu() {
+            var mobileMenu = document.getElementById("mobileMenu");
+            mobileMenu.classList.toggle("show-mobile-menu");
+        }
+        
+        // Close mobile menu when user taps outside of it
+        window.addEventListener("click", function (event) {
+            var mobileMenu = document.getElementById("mobileMenu");
+            var mobileMenuIcon = document.querySelector(".mobile-menu-icon");
+            
+            if (!event.target.matches(".mobile-menu-icon") && !event.target.matches("#mobileMenu") && !event.target.closest("#mobileMenu")) {
+                mobileMenu.classList.remove("show-mobile-menu");
+            }
+        });
+        
+        // Close mobile menu when user taps the space key
+        window.addEventListener("keydown", function (event) {
+            var mobileMenu = document.getElementById("mobileMenu");
+        
+            if (event.keyCode === 32 && mobileMenu.classList.contains("show-mobile-menu")) {
+                mobileMenu.classList.remove("show-mobile-menu");
+            }
+        });
+    </script>
+</body>

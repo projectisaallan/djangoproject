@@ -1,0 +1,20 @@
+
+{% extends 'file_sharing_app/base.html'%}
+
+{% block body %}
+
+<div class='list'>
+<h1> This is a list of the current notes </h1>
+<h2>Tap to read</h2>
+<ul>
+{% for note in notes %}
+<li>{{ note }}</a></li>
+<file controls>
+    <li>{{ note.content }}</li>
+</file>
+{% endfor %}
+<h1 class="pulse-animation"><a href={% url 'upload_note' %}>Note Upload</a></h1>
+</ul>
+</div>
+
+{% endblock body %}

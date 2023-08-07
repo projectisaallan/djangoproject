@@ -1,0 +1,50 @@
+
+<!-- conversation.html -->
+
+<h2>Conversation with {{ user.username }}</h2>
+{% for message in messages %}
+    {% if message.sender == user %}
+        <div style="text-align: left;">
+            {{ message.content }} - {{ message.timestamp }}
+        </div>
+    {% else %}
+        <div style="text-align: right;">
+            {{ message.content }} - {{ message.timestamp }}
+        </div>
+    {% endif %}
+{% endfor %}
+<form onsubmit="sendMessage(); return false;">
+    <input type="text" id="message-input" required>
+    <input type="submit" value="Send">
+</form>
+
+<!-- conversation.html -->
+
+<script>
+    const user_id = "{{ user.id }}";
+    const chatSocket = new WebSocket(
+        'ws://' + window.location.host +
+        '/ws/conversation/' + user_id + '/');
+
+    chatSocket.onmessage = function(e) {
+        const data = JSON.parse(e.data);
+        // Handle incoming message and update the UI here
+    };
+
+    chatSocket.onclose = function(e) {
+        // Handle socket closure
+    };
+
+    // Function to send messages using the WebSocket connection
+    function sendMessage() {
+        const content = document.getElementById('message-input').value;
+        const sender_id = "{{ request.user.id }}";
+
+        chatSocket.send(JSON.stringify({
+            'message': content,
+            'sender_id': sender_id
+        }));
+
+        document.getElementById('message-input').value = '';
+    }
+</script>

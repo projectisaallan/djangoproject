@@ -1,0 +1,37 @@
+
+    {% extends 'file_sharing_app/base.html' %}
+    {% block body %}
+    <main>
+        <div class="container">
+            <section>
+                <h2>click on headings for details</h2>
+                <h2><a href={% url 'note_list' %}>Notes list</a></h2>
+                <ul>
+                    {% for note in notes %}
+                    <li><a href=" {% url 'details'  note.id%} ">{{ note }}</a></li>
+                    {% endfor %}
+                    <!-- Add more recent notes here -->
+                </ul>
+            </section>
+            <section>
+          <h2><a href={% url 'audio_list' %}>Audios list</a></h2>
+                <ul>
+                    {% for audio in audio_files %}
+                    <li>{{ audio }}</li>
+                    {% endfor %}
+                    <!-- Add more recent videos here -->
+                </ul>
+            </section>
+            <section>
+        <h2> <a href={% url 'video_list' %}>videos list</a>  </h2>
+                      <ul>
+                        {% for video in videos %}
+                        <li>{{ video }}</li>
+                        {% endfor %}
+                          <!-- Add more recent videos here -->
+                      </ul>
+             </section>
+            <!-- Add more sections for files, audio, and chat if needed -->
+        </div>
+    </main>
+    {% endblock body  %}

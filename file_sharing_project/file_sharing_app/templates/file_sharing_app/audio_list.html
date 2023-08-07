@@ -1,0 +1,20 @@
+
+{% extends 'file_sharing_app/base.html'%}
+
+{% block body %}
+
+<div class='list'>
+    
+<h1> This is a list of the current videos </h1>
+    <ul>
+        {% for audio in audio_files %}
+        <li>{{ audio }}</li>
+        <audio controls>
+            <li>{{ audio.audio_file }}</li>
+        </audio>
+        {% endfor %}
+    <h1 class="pulse-animation"><a href={% url 'upload_audio' %}>upload audio</a></h1>
+    </ul>
+</div>
+
+{% endblock body %}
